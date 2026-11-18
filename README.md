@@ -15,7 +15,13 @@ Copy-Item .env.example .env
 npm run dev
 ```
 
-Set `VITE_API_URL` in `.env` to the backend base URL.
+Leave `VITE_API_URL` blank for local development; Vite proxies `/api` requests
+to `http://localhost:3000`. Set it to the backend base URL for a deployed
+frontend.
+
+The student page supports searching by ID, first name, last name, and grade;
+viewing, creating, editing, and soft-deleting student records; and uses active
+prefix, gender, and grade-level options from the backend.
 
 ## Commands
 
@@ -25,4 +31,3 @@ npm run build
 npm run lint
 npm run preview
 ```
-
