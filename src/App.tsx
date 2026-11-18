@@ -287,21 +287,21 @@ function App() {
 
           <Row gutter={[16, 16]} className="summary-row">
             <Col xs={24} sm={12} xl={8}>
-              <Card className="summary-card" bordered={false}>
+              <Card className="summary-card" variant="borderless">
                 <span className="summary-label">ACTIVE STUDENTS</span>
                 <Typography.Title level={2}>{students.length}</Typography.Title>
                 <span className="summary-footnote">Matching current filters</span>
               </Card>
             </Col>
             <Col xs={24} sm={12} xl={8}>
-              <Card className="summary-card summary-card-muted" bordered={false}>
+              <Card className="summary-card summary-card-muted" variant="borderless">
                 <span className="summary-label">GRADE LEVELS</span>
                 <Typography.Title level={2}>{lookups.gradeLevels.length}</Typography.Title>
                 <span className="summary-footnote">Available in this school</span>
               </Card>
             </Col>
             <Col xs={24} sm={12} xl={8}>
-              <Card className="summary-card summary-card-muted summary-card-extra" bordered={false}>
+              <Card className="summary-card summary-card-muted summary-card-extra" variant="borderless">
                 <span className="summary-label">DIRECTORY STATUS</span>
                 <Typography.Title level={2} className="status-title"><span className="online-indicator" />Connected</Typography.Title>
                 <span className="summary-footnote">Changes save to the school database</span>
@@ -309,7 +309,7 @@ function App() {
             </Col>
           </Row>
 
-          <Card className="directory-card" bordered={false}>
+          <Card className="directory-card" variant="borderless">
             <div className="directory-header">
               <div>
                 <Typography.Title level={3}>Student directory</Typography.Title>

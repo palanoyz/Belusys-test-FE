@@ -259,7 +259,7 @@ function ClassroomsPage({ gradeLevels }: ClassroomsPageProps) {
           </div>
           <Button type="primary" icon={<UserAddOutlined />} onClick={() => setAssignmentOpen(true)}>Manage students</Button>
         </div>
-        <Card className="directory-card" bordered={false}>
+        <Card className="directory-card" variant="borderless">
           <Descriptions column={{ xs: 1, sm: 2 }} bordered size="small">
             <Descriptions.Item label="Room number">{activeClassroom.roomNo}</Descriptions.Item>
             <Descriptions.Item label="Classroom name">{activeClassroom.roomName}</Descriptions.Item>
@@ -309,7 +309,7 @@ function ClassroomsPage({ gradeLevels }: ClassroomsPageProps) {
             onChange={(studentId: number) => void addStudent(studentId)}
           />
         </div>
-        <Card className="directory-card" bordered={false}>
+        <Card className="directory-card" variant="borderless">
           {error && <Alert type="error" showIcon message={error} />}
           <div className="directory-header">
             <div>
@@ -350,21 +350,21 @@ function ClassroomsPage({ gradeLevels }: ClassroomsPageProps) {
       </div>
       <Row gutter={[16, 16]} className="summary-row">
         <Col xs={24} sm={12}>
-          <Card className="summary-card" bordered={false}>
+          <Card className="summary-card" variant="borderless">
             <span className="summary-label">ACTIVE CLASSROOMS</span>
             <Typography.Title level={2}>{classrooms.length}</Typography.Title>
             <span className="summary-footnote">Matching current filters</span>
           </Card>
         </Col>
         <Col xs={24} sm={12}>
-          <Card className="summary-card" bordered={false}>
+          <Card className="summary-card" variant="borderless">
             <span className="summary-label">HOMEROOM TEACHERS</span>
             <Typography.Title level={2}>{teachers.length}</Typography.Title>
             <span className="summary-footnote">Available for assignment</span>
           </Card>
         </Col>
       </Row>
-      <Card className="directory-card" bordered={false}>
+      <Card className="directory-card" variant="borderless">
         <div className="directory-header">
           <div>
             <Typography.Title level={3}>Classroom directory</Typography.Title>
