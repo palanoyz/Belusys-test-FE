@@ -15,9 +15,8 @@ Copy-Item .env.example .env
 npm run dev
 ```
 
-Leave `VITE_API_URL` blank for local development; Vite proxies `/api` requests
-to `http://localhost:3000`. Set it to the backend base URL for a deployed
-frontend.
+Vite proxies `/api` requests to `http://localhost:3000`.
+Set it to the backend base URL for a deployed frontend.
 
 The student page supports searching by ID, first name, last name, and grade;
 viewing, creating, editing, and soft-deleting student records; and uses active
