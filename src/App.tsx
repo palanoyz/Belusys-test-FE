@@ -63,6 +63,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState('')
   const [filters, setFilters] = useState<StudentSearch>({})
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 })
   const [searchForm] = Form.useForm<StudentSearch>()
   const [studentForm] = Form.useForm<StudentFormValues>()
   const [editingStudent, setEditingStudent] = useState<Student | null>(null)
@@ -308,6 +309,7 @@ function App() {
                   Object.entries(values).filter(([, value]) => value !== undefined && value !== ''),
                 ) as StudentSearch
                 setFilters(nextFilters)
+                setPagination((current) => ({ ...current, current: 1 }))
                 void refreshStudents(nextFilters)
               }}
             >
@@ -335,7 +337,7 @@ function App() {
                 <Col xs={24} md={16} className="search-actions">
                   <Space>
                     <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>Search</Button>
-                    <Button onClick={() => { searchForm.resetFields(); setFilters({}); void refreshStudents({}) }}>Clear filters</Button>
+                    <Button onClick={() => { searchForm.resetFields(); setFilters({}); setPagination((current) => ({ ...current, current: 1 })); void refreshStudents({}) }}>Clear filters</Button>
                   </Space>
                 </Col>
               </Row>
@@ -347,7 +349,13 @@ function App() {
               columns={columns}
               dataSource={students}
               loading={loading}
-              pagination={{ pageSize: 10, showSizeChanger: true, pageSizeOptions: [10, 20, 50], showTotal: (total) => `${total} students` }}
+              pagination={{
+                ...pagination,
+                showSizeChanger: { showSearch: false },
+                pageSizeOptions: [10, 20, 50],
+                showTotal: (total) => `${total} students`,
+                onChange: (current, pageSize) => setPagination({ current, pageSize }),
+              }}
               locale={{ emptyText: loading ? <Spin /> : <Empty description="No students found" /> }}
               scroll={{ x: 700 }}
             />
@@ -398,7 +406,7 @@ function App() {
             </Col>
             <Col span={24}>
               <Form.Item label="Date of birth" name="birthDate" rules={[{ required: true }]}>
-                <DatePicker className="full-width" format="YYYY-MM-DD" />
+                <DatePicker className="full-width" format="DD-MM-YYYY" />
               </Form.Item>
             </Col>
           </Row>
