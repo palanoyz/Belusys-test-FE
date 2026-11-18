@@ -29,6 +29,7 @@ import {
   PlusOutlined,
   ReloadOutlined,
   SearchOutlined,
+  TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons'
 import dayjs, { type Dayjs } from 'dayjs'
@@ -45,6 +46,7 @@ import type {
   StudentLookups,
   StudentSearch,
 } from './api/students'
+import ClassroomsPage from './pages/ClassroomsPage'
 import './App.css'
 
 type StudentFormValues = Omit<StudentInput, 'birthDate'> & {
@@ -63,6 +65,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState('')
   const [filters, setFilters] = useState<StudentSearch>({})
+  const [activePage, setActivePage] = useState<'students' | 'classrooms'>('students')
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 })
   const [searchForm] = Form.useForm<StudentSearch>()
   const [studentForm] = Form.useForm<StudentFormValues>()
@@ -233,11 +236,23 @@ function App() {
           </div>
         </div>
         <Typography.Text className="nav-heading">WORKSPACE</Typography.Text>
-        <div className="nav-item nav-item-active">
+        <button
+          type="button"
+          className={`nav-item nav-button ${activePage === 'students' ? 'nav-item-active' : ''}`}
+          onClick={() => setActivePage('students')}
+        >
           <UserOutlined />
           <span>Students</span>
           <span className="nav-count">{students.length}</span>
-        </div>
+        </button>
+        <button
+          type="button"
+          className={`nav-item nav-button ${activePage === 'classrooms' ? 'nav-item-active' : ''}`}
+          onClick={() => setActivePage('classrooms')}
+        >
+          <TeamOutlined />
+          <span>Classrooms</span>
+        </button>
         <div className="sidebar-note">
           <span className="online-indicator" />
           <span>Student records</span>
@@ -247,7 +262,7 @@ function App() {
 
       <Layout className="main-layout">
         <Layout.Header className="topbar">
-          <Typography.Text className="breadcrumb">Workspace <span>/</span> Students</Typography.Text>
+          <Typography.Text className="breadcrumb">Workspace <span>/</span> {activePage === 'students' ? 'Students' : 'Classrooms'}</Typography.Text>
           <Space size={12}>
             <Tag className="academic-tag">Academic year 2569</Tag>
             <Avatar className="profile-avatar">AD</Avatar>
@@ -255,6 +270,8 @@ function App() {
         </Layout.Header>
 
         <Layout.Content className="page-content">
+          {activePage === 'students' ? (
+            <>
           <div className="page-heading">
             <div>
               <Typography.Text className="eyebrow">PEOPLE DIRECTORY</Typography.Text>
@@ -360,6 +377,10 @@ function App() {
               scroll={{ x: 700 }}
             />
           </Card>
+            </>
+          ) : (
+            <ClassroomsPage gradeLevels={lookups.gradeLevels} />
+          )}
         </Layout.Content>
       </Layout>
 

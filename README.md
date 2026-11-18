@@ -22,6 +22,11 @@ The student page supports searching by ID, first name, last name, and grade;
 viewing, creating, editing, and soft-deleting student records; and uses active
 prefix, gender, and grade-level options from the backend.
 
+The classroom page supports searching by room number, classroom name, and
+homeroom teacher; creating, editing, and soft-deleting classrooms; viewing
+classroom details; and enrolling or removing students for the classroom's
+academic year.
+
 ## Commands
 
 ```powershell
