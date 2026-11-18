@@ -58,6 +58,7 @@ function ClassroomsPage({ gradeLevels }: ClassroomsPageProps) {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [filters, setFilters] = useState<ClassroomSearch>({})
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 })
   const [activeClassroom, setActiveClassroom] = useState<Classroom | null>(null)
   const [editingClassroom, setEditingClassroom] = useState<Classroom | null>(null)
   const [formOpen, setFormOpen] = useState(false)
@@ -380,6 +381,7 @@ function ClassroomsPage({ gradeLevels }: ClassroomsPageProps) {
               Object.entries(values).filter(([, value]) => value !== undefined && value !== ''),
             ) as ClassroomSearch
             setFilters(next)
+            setPagination((current) => ({ ...current, current: 1 }))
             void refreshClassrooms(next)
           }}
         >
@@ -396,7 +398,7 @@ function ClassroomsPage({ gradeLevels }: ClassroomsPageProps) {
             <Col span={24} className="search-actions">
               <Space>
                 <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>Search</Button>
-                <Button onClick={() => { searchForm.resetFields(); setFilters({}); void refreshClassrooms({}) }}>Clear filters</Button>
+                <Button onClick={() => { searchForm.resetFields(); setFilters({}); setPagination((current) => ({ ...current, current: 1 })); void refreshClassrooms({}) }}>Clear filters</Button>
               </Space>
             </Col>
           </Row>
@@ -407,7 +409,13 @@ function ClassroomsPage({ gradeLevels }: ClassroomsPageProps) {
           columns={columns}
           dataSource={classrooms}
           loading={loading}
-          pagination={{ pageSize: 10, showSizeChanger: { showSearch: false }, pageSizeOptions: [10, 20, 50], showTotal: (total) => `${total} classrooms` }}
+          pagination={{
+            ...pagination,
+            showSizeChanger: { showSearch: false },
+            pageSizeOptions: [10, 20, 50],
+            showTotal: (total) => `${total} classrooms`,
+            onChange: (current, pageSize) => setPagination({ current, pageSize }),
+          }}
           scroll={{ x: 700 }}
           onRow={(classroom) => ({ onDoubleClick: () => void showRoster(classroom) })}
         />
