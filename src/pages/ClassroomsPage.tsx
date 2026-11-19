@@ -24,10 +24,10 @@ import {
   ArrowLeftOutlined,
   DeleteOutlined,
   EditOutlined,
+  EyeOutlined,
   PlusOutlined,
   ReloadOutlined,
   SearchOutlined,
-  TeamOutlined,
   UserAddOutlined,
   UserDeleteOutlined,
 } from '@ant-design/icons'
@@ -164,11 +164,6 @@ function ClassroomsPage({ gradeLevels }: ClassroomsPageProps) {
     }
   }
 
-  const openAssignments = async (classroom: Classroom) => {
-    await showRoster(classroom)
-    setAssignmentOpen(true)
-  }
-
   const addStudent = async (studentId: number) => {
     if (!activeClassroom) return
     try {
@@ -237,7 +232,7 @@ function ClassroomsPage({ gradeLevels }: ClassroomsPageProps) {
       align: 'right',
       render: (_, classroom) => (
         <Space size={4}>
-          <Button aria-label={`Manage students in ${classroom.roomName}`} type="text" icon={<TeamOutlined />} onClick={() => void openAssignments(classroom)} />
+          <Button aria-label={`View ${classroom.roomName}`} type="text" icon={<EyeOutlined />} onClick={() => void showRoster(classroom)} />
           <Button aria-label={`Edit ${classroom.roomName}`} type="text" icon={<EditOutlined />} onClick={() => openEdit(classroom)} />
           <Button aria-label={`Delete ${classroom.roomName}`} type="text" danger icon={<DeleteOutlined />} onClick={() => removeClassroom(classroom)} />
         </Space>
